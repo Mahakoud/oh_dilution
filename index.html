@@ -54,8 +54,7 @@
       const volumeCulot = (concFinale * volumeFinal) / concInitiale;
 
       document.getElementById("resultat").innerHTML =
-        `➡️ Volume de culot à prélever : <strong>${volumeCulot.toFixed(3)} mL</strong><br>` +
-        `➡️ Compléter avec <strong>${(volumeFinal - volumeCulot).toFixed(3)} mL</strong> de milieu de culture.`;
+        `➡️ Volume de culot à prélever : <strong>${volumeCulot.toFixed(3)*1000} uL</strong><br>`;
     }
   </script>
 
