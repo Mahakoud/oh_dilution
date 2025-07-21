@@ -55,7 +55,7 @@
 
       document.getElementById("resultat").innerHTML =
         `➡️ Volume de culot à prélever : <strong>${volumeCulot.toFixed(3)*1000} uL</strong><br>` +
-        `➡️ Compléter avec <strong>${(volumeFinal - volumeCulot/1000).toFixed(3)} mL</strong> de milieu de culture.`;
+        `➡️ Compléter avec <strong>${(volumeFinal - (volumeCulot / 1_000)).toFixed(3)} mL</strong> de milieu de culture.`;
     }
   </script>
 
