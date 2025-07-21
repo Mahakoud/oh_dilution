@@ -51,10 +51,10 @@
       // 🔁 Correction : appliquer le facteur de dilution en multipliant
       const concInitiale = (gb * 1000 / 1_000_000) * dilution; // M/mL
 
-      const volumeCulot = (concFinale * volumeFinal) / concInitiale;
+      const volumeCulot = ((concFinale * volumeFinal) / concInitiale)*1000;
 
       document.getElementById("resultat").innerHTML =
-        `➡️ Volume de culot à prélever : <strong>${volumeCulot.toFixed(3)*1000} uL</strong><br>`;
+        `➡️ Volume de culot à prélever : <strong>${volumeCulot.toFixed(3)} uL</strong><br>`;
     }
   </script>
 
