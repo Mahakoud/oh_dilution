@@ -2,93 +2,62 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Calcul manuel d’ensemencement cytogénétique</title>
+  <title>Calcul d’Ensemencement Cytogénétique</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f3f7f9;
-      padding: 20px;
-      line-height: 1.6;
-    }
-    h1 {
-      color: #005b7f;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    input {
-      padding: 8px;
-      width: 100%;
-      max-width: 300px;
-      margin-top: 5px;
-    }
-    .note {
-      margin-top: 20px;
-      padding: 15px;
-      background: #fff3cd;
-      border-left: 5px solid #ffc107;
-    }
-    .formule {
-      background: #e3f2fd;
-      padding: 15px;
-      border-left: 5px solid #2196f3;
-      margin-top: 20px;
-      font-family: monospace;
-      white-space: pre-line;
-    }
-    .print {
-      margin-top: 30px;
-    }
-    button {
-      padding: 10px 20px;
-      background: #0077b6;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #005f8a;
-    }
+    body { font-family: Arial, sans-serif; background: #f0f4f8; padding: 20px; }
+    h1 { color: #005b7f; }
+    label { display: block; margin-top: 15px; }
+    input, select { padding: 8px; width: 100%; max-width: 300px; }
+    button { margin-top: 20px; padding: 10px 20px; background: #0077b6; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #005f8a; }
+    .result { margin-top: 20px; font-size: 1.2em; color: #2a5d27; }
   </style>
 </head>
 <body>
 
-  <h1>Calcul manuel du volume à ensemencer</h1>
+  <h1>Calcul du Volume de Culot Cellulaire</h1>
 
-  <form>
-    <label>GB (en GB/μL) :</label>
-    <input type="number" placeholder="ex : 50000">
+  <label for="gb">GB (en GB/μL) :</label>
+  <input type="number" id="gb" placeholder="Ex : 50000" required>
 
-    <label>Facteur de dilution (ex : 10 pour 1/10) :</label>
-    <input type="number" placeholder="ex : 10">
+  <label for="dilution">Facteur de dilution (ex : 10 pour 1/10) :</label>
+  <input type="number" id="dilution" value="10" required>
 
-    <label>Volume final de culture (en mL) :</label>
-    <input type="number" placeholder="ex : 10">
+  <label for="volume">Volume final de culture (en mL) :</label>
+  <input type="number" id="volume" placeholder="Ex : 10" value="10" required>
 
-    <label>Concentration cible (M/mL) :</label>
-    <input type="number" placeholder="ex : 1.8 pour J1 ou 1.5 pour J2">
-  </form>
+  <label for="concentration">Concentration cible :</label>
+  <select id="concentration">
+    <option value="1.8">1.8 M/mL (J1)</option>
+    <option value="1.5">1.5 M/mL (J2)</option>
+  </select>
 
-  <div class="formule">
-    Formule à utiliser :  
-    Ci = (GB/μL × 1000 ÷ 10⁶) × facteur de dilution  
-    Vi = (Cible × Volume final) ÷ Ci
+  <button onclick="calculer()">Calculer</button>
 
-    ➡️ Volume à prélever = Vi (en mL)  
-    ➡️ Compléter avec : Volume final – Vi (en mL)
-  </div>
+  <div class="result" id="resultat"></div>
 
-  <div class="note">
-    🧠 Effectuez le calcul à la main ou à l’aide d’une calculatrice de paillasse.  
-    Cette fiche peut être imprimée pour les dossiers labo.
-  </div>
+  <script>
+    function calculer() {
+      const gb = parseFloat(document.getElementById("gb").value);
+      const dilution = parseFloat(document.getElementById("dilution").value);
+      const volumeFinal = parseFloat(document.getElementById("volume").value);
+      const concFinale = parseFloat(document.getElementById("concentration").value);
 
-  <div class="print">
-    <button onclick="window.print(); return false;">🖨️ Imprimer la fiche</button>
-  </div>
+      if (isNaN(gb) || gb <= 0 || isNaN(dilution) || dilution <= 0 || isNaN(volumeFinal) || volumeFinal <= 0) {
+        document.getElementById("resultat").innerHTML = "Veuillez entrer des valeurs valides.";
+        return;
+      }
+
+      // 🔁 Correction : appliquer le facteur de dilution en multipliant
+      const concInitiale = (gb * 1000 / 1_000_000) * dilution; // M/mL
+
+      const volumeCulot = (concFinale * volumeFinal) / concInitiale;
+
+      document.getElementById("resultat").innerHTML =
+        `➡️ Volume de culot à prélever : <strong>${volumeCulot.toFixed(3)} mL</strong><br>` +
+        `➡️ Compléter avec <strong>${(volumeFinal - volumeCulot).toFixed(3)} mL</strong> de milieu de culture.`;
+    }
+  </script>
 
 </body>
 </html>
