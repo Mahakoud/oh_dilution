@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Calcul manuel d’ensemencement cytogénétique</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f7f9;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #005b7f;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input {
+      padding: 8px;
+      width: 100%;
+      max-width: 300px;
+      margin-top: 5px;
+    }
+    .note {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff3cd;
+      border-left: 5px solid #ffc107;
+    }
+    .formule {
+      background: #e3f2fd;
+      padding: 15px;
+      border-left: 5px solid #2196f3;
+      margin-top: 20px;
+      font-family: monospace;
+      white-space: pre-line;
+    }
+    .print {
+      margin-top: 30px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #0077b6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #005f8a;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Calcul manuel du volume à ensemencer</h1>
+
+  <form>
+    <label>GB (en GB/μL) :</label>
+    <input type="number" placeholder="ex : 50000">
+
+    <label>Facteur de dilution (ex : 10 pour 1/10) :</label>
+    <input type="number" placeholder="ex : 10">
+
+    <label>Volume final de culture (en mL) :</label>
+    <input type="number" placeholder="ex : 10">
+
+    <label>Concentration cible (M/mL) :</label>
+    <input type="number" placeholder="ex : 1.8 pour J1 ou 1.5 pour J2">
+  </form>
+
+  <div class="formule">
+    Formule à utiliser :  
+    Ci = (GB/μL × 1000 ÷ 10⁶) × facteur de dilution  
+    Vi = (Cible × Volume final) ÷ Ci
+
+    ➡️ Volume à prélever = Vi (en mL)  
+    ➡️ Compléter avec : Volume final – Vi (en mL)
+  </div>
+
+  <div class="note">
+    🧠 Effectuez le calcul à la main ou à l’aide d’une calculatrice de paillasse.  
+    Cette fiche peut être imprimée pour les dossiers labo.
+  </div>
+
+  <div class="print">
+    <button onclick="window.print(); return false;">🖨️ Imprimer la fiche</button>
+  </div>
+
+</body>
+</html>
